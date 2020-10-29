@@ -5,6 +5,7 @@ public class ContentBean {
 	private String air_info_destination;//도착지
 	private String air_info_departure;//출발날짜
 	private String air_info_arrival; //도착날짜
+	
 	public String getAir_info_startingpoint() {
 		return air_info_startingpoint;
 	}

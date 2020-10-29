@@ -32,9 +32,9 @@ import co.soft.mapper.BoardMapper;
 @EnableWebMvc
 @ComponentScan("co.soft.controller")
 @ComponentScan("co.soft.service")
-@ComponentScan("co.soft.beans.dao")
+@ComponentScan("co.soft.dao")
 
-
+@PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
 	
 	@Value("${db.classname}")
@@ -49,7 +49,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 	@Value("${db.password}")
 	private String db_password;
 	
-	// Controller占쎌벥 筌롫뗄苑뚳옙諭뜹첎占� 獄쏆꼹�넎占쎈릭占쎈뮉 jsp占쎌벥 占쎌뵠�뵳占� 占쎈링占쎈츟占쎈퓠 野껋럥以덌옙占� 占쎌넇占쎌삢占쎌쁽�몴占� �겫�닀占썰틠�눖猷꾣에占� 占쎄퐬占쎌젟占쎈립占쎈뼄.
+	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		// TODO Auto-generated method stub
@@ -57,7 +57,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 		registry.jsp("/WEB-INF/views/", ".jsp");
 	}
 	
-	// 占쎌젟占쎌읅 占쎈솁占쎌뵬占쎌벥 野껋럥以덄몴占� 筌띲끋釉⑨옙釉놂옙�뼄.
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		// TODO Auto-generated method stub
@@ -83,12 +83,16 @@ public class ServletAppContext implements WebMvcConfigurer{
 		return factory;
 	}
 	
+	@Bean
 	public MapperFactoryBean<BoardMapper> getBoardMapper(SqlSessionFactory factory) throws Exception{
 		MapperFactoryBean<BoardMapper> factoryBean = new MapperFactoryBean<BoardMapper>(BoardMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer PropertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
 	
 }
 
